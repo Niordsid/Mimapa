@@ -63,23 +63,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
     }
 
-public void onSearch(View v){
-    EditText location_tf = (EditText)findViewById(R.id.address);
-    String  location = location_tf.getText().toString();
-    List<Address> addressList = null;
-    if (location != null || !location.equals("")){
-        Geocoder geocoder = new Geocoder(this);
-        try {
-          addressList = geocoder.getFromLocationName(location, 1);
-        } catch (IOException e) {
-            e.printStackTrace();
+    public void onSearch(View v){
+        EditText location_tf = (EditText)findViewById(R.id.address);
+        String  location = location_tf.getText().toString();
+        List<Address> addressList = null;
+        if (location != null || !location.equals("")){
+            Geocoder geocoder = new Geocoder(this);
+            try {
+              addressList = geocoder.getFromLocationName(location, 1);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            Address address = addressList.get(0);
+            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(latLng).title("Market"));
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         }
-        Address address = addressList.get(0);
-        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-        mMap.addMarker(new MarkerOptions().position(latLng).title("Market"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
     }
-}
+
+    public void changeType(View v){
+
+        if(mMap.getMapType() == GoogleMap.MAP_TYPE_NORMAL){
+            mMap.setMapType(GoogleMap. MAP_TYPE_SATELLITE);
+        }
+        else{
+            mMap.setMapType(GoogleMap. MAP_TYPE_NORMAL);
+                }
+    }
 
     public void animateCamera(View v) {
         if (mMap.getMyLocation() != null)

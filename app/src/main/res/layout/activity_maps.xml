@@ -43,6 +43,13 @@
                 android:id="@+id/button2"
                 android:onClick="camNormal"
                 android:layout_column="2" />
+
+            <Button
+                android:id="@+id/Maptype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="changeType"
+                android:text="Tipo Mapa" />
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
